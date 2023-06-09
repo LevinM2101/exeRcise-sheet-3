@@ -103,6 +103,7 @@ c)  Calculate the total number of babies born in Munich in 2022
 ```{r}
 sum(BabyN21$Anzahl)
 sum(BabyN22$Anzahl)
+sum(BabyN21$Anzahl) > sum(BabyN22$Anzahl)
 ```
 2021 probably had the bigger baby boom. 
 
