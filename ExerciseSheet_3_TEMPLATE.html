@@ -219,10 +219,49 @@ pre code {
 <ol style="list-style-type: lower-alpha">
 <li><p>Download the data for both years and track it in git. For small datasets like these adding them to git is not a problem.</p></li>
 <li><p>Load the data for both years into R. Check the type of the count variable (“Anzahl”) and look into the data to determine why it is not numeric? Fix the problem in an appropriate manner, it is OK if some of the counts are inaccurate because of this. Explain your solution and the repercussions.</p></li>
-<li><p>Calculate the total number of babies born in Munich in 2022 and 2021. Which year had the bigger baby-boom?</p></li>
-<li><p>Add a new column <code>year</code> to both datasets which holds the correct year for each.</p></li>
-<li><p>Combine both datasets into one using <code>bind_rows()</code>.</p></li>
-<li><p>Combine the counts for same names to determine the most popular names across both years. Print out the top 10 names in a nicely formatted table for both years. Include a table caption.</p></li>
+</ol>
+<pre class="r"><code>BabyN21 &lt;- read.csv(&quot;vornamen_2021.csv&quot;)
+BabyN22 &lt;- read.csv(&quot;open_data_portal_2022.csv&quot;)
+
+typeof(BabyN21$Anzahl)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>typeof(BabyN22$Anzahl)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code>BabyN21$Anzahl &lt;- as.numeric(BabyN21$Anzahl)</code></pre>
+<pre><code>## Warning: NAs durch Umwandlung erzeugt</code></pre>
+<pre class="r"><code>BabyN22$Anzahl &lt;- as.numeric(BabyN22$Anzahl)</code></pre>
+<pre><code>## Warning: NAs durch Umwandlung erzeugt</code></pre>
+<pre class="r"><code>BabyN21$Anzahl &lt;- ifelse(is.na(BabyN21$Anzahl), 0, BabyN21$Anzahl)
+BabyN22$Anzahl &lt;- ifelse(is.na(BabyN22$Anzahl), 0, BabyN22$Anzahl)</code></pre>
+<p>In both datasets if a name has been picked 4 times or less the value is “4 oder weniger”, that’s probably the reason it was a chr variable. I just used as.numeric because I can’t know the actual value of each “4 oder weniger” and I can’t use a value like “&lt;=4” without changing the variables into chr again so I might as well just turn them into 0 for each.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Calculate the total number of babies born in Munich in 2022 and 2021. Which year had the bigger baby-boom?</li>
+</ol>
+<pre class="r"><code>sum(BabyN21$Anzahl)</code></pre>
+<pre><code>## [1] 11524</code></pre>
+<pre class="r"><code>sum(BabyN22$Anzahl)</code></pre>
+<pre><code>## [1] 9899</code></pre>
+<p>2021 probably had the bigger baby boom.</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Add a new column <code>year</code> to both datasets which holds the correct year for each.</li>
+</ol>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attache Paket: &#39;dplyr&#39;</code></pre>
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## Die folgenden Objekte sind maskiert von &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>BabyN21 &lt;- BabyN21 %&gt;% mutate(year = 2021)
+BabyN22 &lt;- BabyN22 %&gt;% mutate(year = 2022)</code></pre>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Combine both datasets into one using <code>bind_rows()</code>.</li>
+</ol>
+<pre class="r"><code>BabyNames &lt;- bind_rows(BabyN21, BabyN22)</code></pre>
+<ol start="6" style="list-style-type: lower-alpha">
+<li>Combine the counts for same names to determine the most popular names across both years. Print out the top 10 names in a nicely formatted table for both years. Include a table caption.</li>
 </ol>
 </div>
 <div id="exercise-4-chat-gpt-apply-3-points" class="section level2">
