@@ -116,7 +116,7 @@ library(dplyr)
 BabyN21 <- BabyN21 %>% mutate(year = 2021)
 BabyN22 <- BabyN22 %>% mutate(year = 2022)
 ```
-    
+    .
 
 e)  Combine both datasets into one using `bind_rows()`.
 
