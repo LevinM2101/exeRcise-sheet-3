@@ -295,6 +295,31 @@ kable(Top10Names, caption = &quot;Top 10 names munich 2021-2022&quot;)</code></p
 <p>###Calculate column-wise means</p>
 <p>column_means &lt;- lapply(tax_data<span class="math display">\[, -1\]</span>, 2, mean)</p>
 <p>column_means</p>
+<p>This code doesn’t work because the wrong apply function has been used: tax_data &lt;- data.frame( Name = c(“Munich GmbH”, “ABC Inc.”, “Backpacks 1980”, “Bavarian Circus”), Tax_2019 = c(5000, 4000, 6000, 3500), Tax_2020 = c(4800, 4200, 5800, 3700), Tax_2021 = c(5200, 3800, 5900, 3400) ) column_means &lt;- lapply(tax_data<span class="math display">\[, -1\]</span>, 2, mean) Find out which apply function would be correct and why it did not work. Correct the code. Also calculate the rowwise means.</p>
+<pre class="r"><code># Create the tax_data data frame
+tax_data &lt;- data.frame(
+  Name = c(&quot;Munich GmbH&quot;, &quot;ABC Inc.&quot;, &quot;Backpacks 1980&quot;, &quot;Bavarian Circus&quot;),
+  Tax_2019 = c(5000, 4000, 6000, 3500),
+  Tax_2020 = c(4800, 4200, 5800, 3700),
+  Tax_2021 = c(5200, 3800, 5900, 3400)
+)
+
+# Calculate the column means using sapply
+column_means &lt;- sapply(tax_data[, -1], mean)
+
+# Add the row-wise means as a new column
+tax_data$Row_Means &lt;- rowMeans(tax_data[, -1])
+
+# Print the updated tax_data data frame and the column means
+tax_data</code></pre>
+<pre><code>##              Name Tax_2019 Tax_2020 Tax_2021 Row_Means
+## 1     Munich GmbH     5000     4800     5200  5000.000
+## 2        ABC Inc.     4000     4200     3800  4000.000
+## 3  Backpacks 1980     6000     5800     5900  5900.000
+## 4 Bavarian Circus     3500     3700     3400  3533.333</code></pre>
+<pre class="r"><code>column_means</code></pre>
+<pre><code>## Tax_2019 Tax_2020 Tax_2021 
+##     4625     4625     4575</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Using ChatGPT try to understand what the rapply() function does. Create an easy example with mock data where the function is used and explain it in your words.</li>
 </ol>
