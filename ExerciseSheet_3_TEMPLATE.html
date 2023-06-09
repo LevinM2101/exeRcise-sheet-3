@@ -265,6 +265,24 @@ BabyN22 &lt;- BabyN22 %&gt;% mutate(year = 2022)</code></pre>
 <ol start="6" style="list-style-type: lower-alpha">
 <li>Combine the counts for same names to determine the most popular names across both years. Print out the top 10 names in a nicely formatted table for both years. Include a table caption.</li>
 </ol>
+<pre class="r"><code>library(knitr)
+
+TopBabyNames &lt;- BabyNames %&gt;% group_by(BabyNames$ï..Vorname) %&gt;% summarize(total = sum(Anzahl)) %&gt;% arrange(desc(total))
+Top10Names &lt;- TopBabyNames %&gt;% top_n(10, total)
+kable(Top10Names, caption = &quot;Top 10 names munich 2021-2022&quot;)</code></pre>
+<table>
+<caption>Top 10 names munich 2021-2022</caption>
+<thead>
+<tr class="header">
+<th align="right">total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">21423</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="exercise-4-chat-gpt-apply-3-points" class="section level2">
 <h2>Exercise 4: Chat GPT + apply (3 points)</h2>

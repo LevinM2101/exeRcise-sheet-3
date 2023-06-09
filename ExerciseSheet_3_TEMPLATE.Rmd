@@ -128,6 +128,15 @@ BabyNames <- bind_rows(BabyN21, BabyN22)
 f)  Combine the counts for same names to determine the most popular
     names across both years. Print out the top 10 names in a nicely
     formatted table for both years. Include a table caption.
+    
+```{r}
+library(knitr)
+
+TopBabyNames <- BabyNames %>% group_by(BabyNames$ï..Vorname) %>% summarize(total = sum(Anzahl)) %>% arrange(desc(total))
+Top10Names <- TopBabyNames %>% top_n(10, total)
+kable(Top10Names, caption = "Top 10 names munich 2021-2022")
+```
+    
 
 ## Exercise 4: Chat GPT + apply (3 points)
 
