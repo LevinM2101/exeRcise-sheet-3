@@ -190,6 +190,24 @@ column_means
 b)  Using ChatGPT try to understand what the rapply() function does.
     Create an easy example with mock data where the function is used and
     explain it in your words.
+    
+In r create an easy example with mock data where the rapply() function is used and explain to me what the function does.
+
+```{r}
+# Create a nested list
+nested_list <- list(a = list(1, 2), b = list(3, 4), c = list(5, list(6, 7)))
+
+# Print the original list
+print(nested_list)
+
+# Use rapply to increment each element by 1
+result <- rapply(nested_list, function(x) x + 1)
+
+# Print the result
+print(result)
+```
+
+The rapply() function performs an operation on each element of a list, even if they're in a list within a list. In this example there is 1 added to every element.
 
 ## Final Note
 

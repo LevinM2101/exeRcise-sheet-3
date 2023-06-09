@@ -323,6 +323,46 @@ tax_data</code></pre>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Using ChatGPT try to understand what the rapply() function does. Create an easy example with mock data where the function is used and explain it in your words.</li>
 </ol>
+<p>In r create an easy example with mock data where the rapply() function is used and explain to me what the function does.</p>
+<pre class="r"><code># Create a nested list
+nested_list &lt;- list(a = list(1, 2), b = list(3, 4), c = list(5, list(6, 7)))
+
+# Print the original list
+print(nested_list)</code></pre>
+<pre><code>## $a
+## $a[[1]]
+## [1] 1
+## 
+## $a[[2]]
+## [1] 2
+## 
+## 
+## $b
+## $b[[1]]
+## [1] 3
+## 
+## $b[[2]]
+## [1] 4
+## 
+## 
+## $c
+## $c[[1]]
+## [1] 5
+## 
+## $c[[2]]
+## $c[[2]][[1]]
+## [1] 6
+## 
+## $c[[2]][[2]]
+## [1] 7</code></pre>
+<pre class="r"><code># Use rapply to increment each element by 1
+result &lt;- rapply(nested_list, function(x) x + 1)
+
+# Print the result
+print(result)</code></pre>
+<pre><code>## a1 a2 b1 b2 c1 c2 c3 
+##  2  3  4  5  6  7  8</code></pre>
+<p>The rapply() function performs an operation on each element of a list, even if they’re in a list within a list. In this example there is 1 added to every element.</p>
 </div>
 <div id="final-note" class="section level2">
 <h2>Final Note</h2>
